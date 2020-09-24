@@ -3,10 +3,16 @@
 const CLOUD_WIDTH = 420;
 const CLOUD_HEIGHT = 270;
 const BAR_HEIGHT = 150;
+const BLACK_COLOR = `#000`;
 
 function renderBlock(ctx, fillStyle, coordinateX, coordinateY, width, height) {
   ctx.fillStyle = fillStyle;
   ctx.fillRect(coordinateX, coordinateY, width, height);
+}
+
+function renderText(ctx, text, textX, textY, color) {
+  ctx.fillStyle = color;
+  ctx.fillText(text, textX, textY);
 }
 
 function getMaxElement(array) {
@@ -24,10 +30,9 @@ window.renderStatistics = (ctx, names, times) => {
   renderBlock(ctx, `rgba(0, 0, 0, 0.7)`, cloudX + 10, cloudY + 10, CLOUD_WIDTH, CLOUD_HEIGHT);
   renderBlock(ctx, `white`, cloudX, cloudY, CLOUD_WIDTH, CLOUD_HEIGHT);
 
-  ctx.fillStyle = `black`;
   ctx.font = `16px PT Mono black`;
-  ctx.fillText(`Ура вы победили!`, cloudX + 30, cloudY + 30);
-  ctx.fillText(`Список результатов: `, cloudX + 30, cloudY + 50);
+  renderText(ctx, `Ура вы победили!`, cloudX + 30, cloudY + 30, BLACK_COLOR);
+  renderText(ctx, `Список результатов: `, cloudX + 30, cloudY + 50, BLACK_COLOR);
 
   let columnX = cloudX + 50;
   let columnY = cloudY + 80;
@@ -36,16 +41,11 @@ window.renderStatistics = (ctx, names, times) => {
   let maxElement = getMaxElement(times);
 
   for (let i = 0; i < names.length; i++) {
-    let color = `rgba(0, 0, 255, ` + (Math.random() + 0.1) + `)`;
-    if (names[i] === `Вы`) {
-      color = `rgba(255, 0, 0, 1)`;
-    }
-    ctx.fillStyle = `#000`;
+    let color = names[i] === `Вы` ? `rgba(255, 0, 0, 1)` : `hsl(240, ` + (Math.random() * 99 + 1) + `%, 50%)`;
     let columnHeight = (BAR_HEIGHT * times[i]) / maxElement;
-    ctx.fillText(parseInt(times[i], 10), columnX, cloudY + BAR_HEIGHT - columnHeight + 70);
+    renderText(ctx, Math.round(times[i], 10).toString(), columnX, cloudY + BAR_HEIGHT - columnHeight + 70, BLACK_COLOR);
     renderBlock(ctx, color, columnX, columnY + BAR_HEIGHT - columnHeight, columnWidth, columnHeight);
-    ctx.fillStyle = `#000`;
-    ctx.fillText(names[i], columnX, columnY + 170);
+    renderText(ctx, names[i], columnX, columnY + 170, BLACK_COLOR);
     columnX += 90;
   }
 };
