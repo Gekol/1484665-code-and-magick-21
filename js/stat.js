@@ -23,9 +23,13 @@ function getMaxElement(array) {
   return maxElement;
 }
 
+function getBlockColor(hue, saturate, lightness) {
+  return `hsl(${hue.toString()}, ${saturate.toString()}%, ${lightness.toString()}%)`;
+}
+
 window.renderStatistics = (ctx, names, times) => {
-  let cloudX = 100;
-  let cloudY = 10;
+  const cloudX = 100;
+  const cloudY = 10;
 
   renderBlock(ctx, `rgba(0, 0, 0, 0.7)`, cloudX + 10, cloudY + 10, CLOUD_WIDTH, CLOUD_HEIGHT);
   renderBlock(ctx, `white`, cloudX, cloudY, CLOUD_WIDTH, CLOUD_HEIGHT);
@@ -35,14 +39,14 @@ window.renderStatistics = (ctx, names, times) => {
   renderText(ctx, `Список результатов: `, cloudX + 30, cloudY + 50, BLACK_COLOR);
 
   let columnX = cloudX + 50;
-  let columnY = cloudY + 80;
-  let columnWidth = 40;
+  const columnY = cloudY + 80;
+  const columnWidth = 40;
 
-  let maxElement = getMaxElement(times);
+  const maxElement = getMaxElement(times);
 
   for (let i = 0; i < names.length; i++) {
-    let color = names[i] === `Вы` ? `rgba(255, 0, 0, 1)` : `hsl(240, ` + (Math.random() * 99 + 1) + `%, 50%)`;
-    let columnHeight = (BAR_HEIGHT * times[i]) / maxElement;
+    const color = names[i] === `Вы` ? `rgba(255, 0, 0, 1)` : getBlockColor(240, Math.random() * 99 + 1, 50);
+    const columnHeight = (BAR_HEIGHT * times[i]) / maxElement;
     renderText(ctx, Math.round(times[i], 10).toString(), columnX, cloudY + BAR_HEIGHT - columnHeight + 70, BLACK_COLOR);
     renderBlock(ctx, color, columnX, columnY + BAR_HEIGHT - columnHeight, columnWidth, columnHeight);
     renderText(ctx, names[i], columnX, columnY + 170, BLACK_COLOR);
