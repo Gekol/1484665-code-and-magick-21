@@ -13,7 +13,7 @@ function showBlock(block) {
 }
 
 function generateRandomInt(maxNum = 1, minNum = 0) {
-  return Math.round(Math.random() * maxNum) + minNum;
+  return Math.round(Math.random() * (maxNum - minNum)) + minNum;
 }
 
 function generateWizardsData() {
@@ -24,7 +24,7 @@ function generateWizardsData() {
       coatColor: COAT_COLORS[generateRandomInt(COAT_COLORS.length)],
       eyesColor: EYES_COLORS[generateRandomInt(EYES_COLORS.length)]
     };
-    const nameFirstPositionProbability = generateRandomInt(99, 1);
+    const nameFirstPositionProbability = generateRandomInt(100, 1);
     const name = NAMES[generateRandomInt(NAMES.length)];
     const surname = SURNAMES[generateRandomInt(SURNAMES.length)];
     if (nameFirstPositionProbability > 50) {
