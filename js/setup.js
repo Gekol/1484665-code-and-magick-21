@@ -13,7 +13,7 @@ function showBlock(block) {
 }
 
 function generateRandomInt(maxNum = 1, minNum = 0) {
-  return Math.floor(Math.random() * maxNum) + minNum;
+  return Math.round(Math.random() * maxNum) + minNum;
 }
 
 function generateWizardsData() {
