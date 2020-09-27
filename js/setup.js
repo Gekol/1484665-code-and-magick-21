@@ -6,14 +6,14 @@ const COAT_COLORS = [`rgb(101, 137, 164)`, `rgb(241, 43, 107)`, `rgb(146, 100, 1
 const EYES_COLORS = [`black`, `red`, `blue`, `yellow`, `green`];
 const CHARACTERS_COUNT = 4;
 const wizardTemplate = document.querySelector(`#similar-wizard-template`).content.querySelector(`.setup-similar-item`);
-let wizardsList = document.querySelector(`.setup-similar-list`);
+const wizardsList = document.querySelector(`.setup-similar-list`);
 
 function showBlock(block) {
   block.classList.remove(`hidden`);
 }
 
-function generateRandomNum(maxNum) {
-  return Math.floor(Math.random() * maxNum);
+function generateRandomInt(maxNum = 1, minNum = 0) {
+  return Math.floor(Math.random() * maxNum) + minNum;
 }
 
 function generateWizardsData() {
@@ -21,12 +21,12 @@ function generateWizardsData() {
 
   for (let i = 0; i < CHARACTERS_COUNT; i++) {
     let newCharacter = {
-      coatColor: COAT_COLORS[generateRandomNum(COAT_COLORS.length)],
-      eyesColor: EYES_COLORS[generateRandomNum(EYES_COLORS.length)]
+      coatColor: COAT_COLORS[generateRandomInt(COAT_COLORS.length)],
+      eyesColor: EYES_COLORS[generateRandomInt(EYES_COLORS.length)]
     };
-    const nameFirstPositionProbability = generateRandomNum(99) + 1;
-    const name = NAMES[generateRandomNum(NAMES.length)];
-    const surname = SURNAMES[generateRandomNum(SURNAMES.length)];
+    const nameFirstPositionProbability = generateRandomInt(99, 1);
+    const name = NAMES[generateRandomInt(NAMES.length)];
+    const surname = SURNAMES[generateRandomInt(SURNAMES.length)];
     if (nameFirstPositionProbability > 50) {
       newCharacter.name = `${name} ${surname}`;
     } else {
@@ -54,10 +54,10 @@ function generateWizardElems() {
 }
 
 function main() {
-  let setupBlock = document.querySelector(`.setup`);
+  const setupBlock = document.querySelector(`.setup`);
   showBlock(setupBlock);
   generateWizardElems();
-  let setupSimilarBlock = document.querySelector(`.setup-similar`);
+  const setupSimilarBlock = document.querySelector(`.setup-similar`);
   showBlock(setupSimilarBlock);
 }
 
