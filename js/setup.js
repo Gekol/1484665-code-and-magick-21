@@ -5,15 +5,29 @@ const SURNAMES = [`да Марья`, `Верон`, `Мирабелла`, `Вал
 const COAT_COLORS = [`rgb(101, 137, 164)`, `rgb(241, 43, 107)`, `rgb(146, 100, 161)`, `rgb(56, 159, 117)`, `rgb(215, 210, 55)`, `rgb(0, 0, 0)`];
 const EYES_COLORS = [`black`, `red`, `blue`, `yellow`, `green`];
 const CHARACTERS_COUNT = 4;
-const wizardTemplate = document.querySelector(`#similar-wizard-template`).content.querySelector(`.setup-similar-item`);
-const wizardsList = document.querySelector(`.setup-similar-list`);
 
-function showBlock(block) {
-  block.classList.remove(`hidden`);
+function showBlock(selector) {
+  let block = document.querySelector(selector);
+  if (block !== undefined) {
+    block.classList.remove(`hidden`);
+  }
 }
 
-function generateRandomInt(maxNum = 1, minNum = 0) {
+function generateRandomInt(minNum = 0, maxNum = 1) {
   return Math.round(Math.random() * (maxNum - minNum)) + minNum;
+}
+
+function generateCharacterName() {
+  const nameFirstPositionProbability = generateRandomInt(1, 100);
+  const name = NAMES[generateRandomInt(0, NAMES.length - 1)];
+  const surname = SURNAMES[generateRandomInt(0, SURNAMES.length - 1)];
+  let fullName = ``;
+  if (nameFirstPositionProbability > 50) {
+    fullName = `${name} ${surname}`;
+  } else {
+    fullName = `${surname} ${name}`;
+  }
+  return fullName;
 }
 
 function generateWizardsData() {
@@ -21,23 +35,17 @@ function generateWizardsData() {
 
   for (let i = 0; i < CHARACTERS_COUNT; i++) {
     let newCharacter = {
-      coatColor: COAT_COLORS[generateRandomInt(COAT_COLORS.length)],
-      eyesColor: EYES_COLORS[generateRandomInt(EYES_COLORS.length)]
+      name: generateCharacterName(),
+      coatColor: COAT_COLORS[generateRandomInt(0, COAT_COLORS.length - 1)],
+      eyesColor: EYES_COLORS[generateRandomInt(0, EYES_COLORS.length - 1)]
     };
-    const nameFirstPositionProbability = generateRandomInt(100, 1);
-    const name = NAMES[generateRandomInt(NAMES.length)];
-    const surname = SURNAMES[generateRandomInt(SURNAMES.length)];
-    if (nameFirstPositionProbability > 50) {
-      newCharacter.name = `${name} ${surname}`;
-    } else {
-      newCharacter.name = `${surname} ${name}`;
-    }
     characters[i] = newCharacter;
   }
   return characters;
 }
 
 function generateWizardElem(data) {
+  const wizardTemplate = document.querySelector(`#similar-wizard-template`).content.querySelector(`.setup-similar-item`);
   const newElem = wizardTemplate.cloneNode(true);
   newElem.querySelector(`.setup-similar-label`).textContent = data.name;
   newElem.querySelector(`.wizard-coat`).style.fill = data.coatColor;
@@ -50,15 +58,14 @@ function generateWizardElems() {
   for (let data of generateWizardsData()) {
     fragment.appendChild(generateWizardElem(data));
   }
+  let wizardsList = document.querySelector(`.setup-similar-list`);
   wizardsList.appendChild(fragment);
 }
 
 function main() {
-  const setupBlock = document.querySelector(`.setup`);
-  showBlock(setupBlock);
+  showBlock(`.setup`);
   generateWizardElems();
-  const setupSimilarBlock = document.querySelector(`.setup-similar`);
-  showBlock(setupSimilarBlock);
+  showBlock(`.setup-similar`);
 }
 
 main();
