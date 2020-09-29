@@ -18,28 +18,20 @@ function generateRandomInt(minNum = 0, maxNum = 1) {
 }
 
 function generateCharacterName() {
-  const nameFirstPositionProbability = generateRandomInt(1, 100);
   const name = NAMES[generateRandomInt(0, NAMES.length - 1)];
   const surname = SURNAMES[generateRandomInt(0, SURNAMES.length - 1)];
-  let fullName = ``;
-  if (nameFirstPositionProbability > 50) {
-    fullName = `${name} ${surname}`;
-  } else {
-    fullName = `${surname} ${name}`;
-  }
-  return fullName;
+  return generateRandomInt(0, 1) > 0 ? `${name} ${surname}` : `${surname} ${name}`;
 }
 
 function generateWizardsData() {
   let characters = [];
 
   for (let i = 0; i < CHARACTERS_COUNT; i++) {
-    let newCharacter = {
+    characters.push({
       name: generateCharacterName(),
       coatColor: COAT_COLORS[generateRandomInt(0, COAT_COLORS.length - 1)],
       eyesColor: EYES_COLORS[generateRandomInt(0, EYES_COLORS.length - 1)]
-    };
-    characters[i] = newCharacter;
+    });
   }
   return characters;
 }
@@ -58,7 +50,7 @@ function generateWizardElems() {
   for (let data of generateWizardsData()) {
     fragment.appendChild(generateWizardElem(data));
   }
-  let wizardsList = document.querySelector(`.setup-similar-list`);
+  const wizardsList = document.querySelector(`.setup-similar-list`);
   wizardsList.appendChild(fragment);
 }
 
