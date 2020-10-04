@@ -32,11 +32,11 @@ function hideSetup() {
 }
 
 function checkElementIsOnFocus(selector) {
-  return document.querySelector(selector) !== document.activeElement;
+  return document.querySelector(selector) === document.activeElement;
 }
 
 function hideSetupByEscape(evt) {
-  if (evt.key === `Escape` && checkElementIsOnFocus(`.setup-user-name`)) {
+  if (evt.key === `Escape` && !checkElementIsOnFocus(`.setup-user-name`)) {
     hideSetup();
   }
 }
