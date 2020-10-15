@@ -108,13 +108,19 @@ function main() {
   const wizardFireBall = document.querySelector(`.setup-fireball-wrap`);
   generateWizardElems();
   wizardCoat.addEventListener(`click`, function () {
-    wizardCoat.style.fill = getRandomElement(COAT_COLORS);
+    const coatColor = getRandomElement(COAT_COLORS);
+    wizardCoat.style.fill = coatColor;
+    document.querySelector(`input[name='coat-color']`);
   });
   wizardEyes.addEventListener(`click`, function () {
-    wizardEyes.style.fill = getRandomElement(EYES_COLORS);
+    const eyeColor = getRandomElement(EYES_COLORS);
+    wizardEyes.style.fill = eyeColor;
+    document.querySelector(`input[name='eyes-color']`);
   });
-  wizardFireBall.addEventListener(`click`, function() {
-    wizardFireBall.style.background = getRandomElement(FIREBALL_COLORS);
+  wizardFireBall.addEventListener(`click`, function () {
+    const fireBallColor = getRandomElement(FIREBALL_COLORS);
+    wizardFireBall.style.background = fireBallColor;
+    document.querySelector(`input[name='fireball-color']`);
   });
   setupOpen.addEventListener(`click`, showSetupBlock);
   setupOpen.addEventListener(`keydown`, showSetupBlock);
