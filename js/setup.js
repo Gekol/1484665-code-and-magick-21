@@ -110,17 +110,17 @@ function main() {
   wizardCoat.addEventListener(`click`, function () {
     const coatColor = getRandomElement(COAT_COLORS);
     wizardCoat.style.fill = coatColor;
-    document.querySelector(`input[name='coat-color']`);
+    document.querySelector(`input[name='coat-color']`).value = coatColor;
   });
   wizardEyes.addEventListener(`click`, function () {
     const eyeColor = getRandomElement(EYES_COLORS);
     wizardEyes.style.fill = eyeColor;
-    document.querySelector(`input[name='eyes-color']`);
+    document.querySelector(`input[name='eyes-color']`).value = eyeColor;
   });
   wizardFireBall.addEventListener(`click`, function () {
     const fireBallColor = getRandomElement(FIREBALL_COLORS);
     wizardFireBall.style.background = fireBallColor;
-    document.querySelector(`input[name='fireball-color']`);
+    document.querySelector(`input[name='fireball-color']`).value = fireBallColor;
   });
   setupOpen.addEventListener(`click`, showSetupBlock);
   setupOpen.addEventListener(`keydown`, showSetupBlock);
