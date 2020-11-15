@@ -125,6 +125,13 @@
     setupOpen.addEventListener(`keydown`, showSetupBlock);
     setupClose.addEventListener(`click`, hideSetupBlock);
     setupClose.addEventListener(`keydown`, hideSetupBlock);
+    const form = window.setup.querySelector(`.setup-wizard-form`);
+    form.addEventListener(`submit`, function (evt) {
+      window.save(new FormData(form), function () {
+        window.setup.classList.add(`hidden`);
+      });
+      evt.preventDefault();
+    });
   }
 
   main();
