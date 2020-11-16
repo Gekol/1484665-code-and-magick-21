@@ -127,9 +127,9 @@
     setupClose.addEventListener(`keydown`, hideSetupBlock);
     const form = window.setup.querySelector(`.setup-wizard-form`);
     form.addEventListener(`submit`, function (evt) {
-      window.save(new FormData(form), function () {
+      window.backend.save(new FormData(form), function () {
         window.setup.classList.add(`hidden`);
-      });
+      }, console.log);
       evt.preventDefault();
     });
   }

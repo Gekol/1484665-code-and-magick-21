@@ -1,13 +1,13 @@
 'use strict';
 
 (function () {
+  let StatusCode = {
+    OK: 200
+  };
 
   window.backend = {
     load(onLoad, onError) {
       const URL = `https://21.javascript.pages.academy/code-and-magick/data`;
-      let StatusCode = {
-        OK: 200
-      };
       let TIMEOUT_IN_MS = 10000;
       let xhr = new XMLHttpRequest();
       xhr.responseType = `json`;
@@ -36,11 +36,14 @@
       const xhr = new XMLHttpRequest();
       xhr.responseType = `json`;
       xhr.addEventListener(`load`, function () {
-        try {
+        if (xhr.status === StatusCode.OK) {
           onLoad(xhr.response);
-        } catch (e) {
-          onError(e.message);
+        } else {
+          onError(`Статус ответа: ` + xhr.status + ` ` + xhr.statusText);
         }
+      });
+      xhr.addEventListener(`error`, function () {
+        onError(`Произошла ошибка соединения`);
       });
 
       xhr.open(`POST`, URL);
