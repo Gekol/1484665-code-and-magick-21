@@ -129,7 +129,7 @@
     form.addEventListener(`submit`, function (evt) {
       window.backend.save(new FormData(form), function () {
         window.setup.classList.add(`hidden`);
-      }, console.log);
+      });
       evt.preventDefault();
     });
   }
