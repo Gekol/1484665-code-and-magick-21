@@ -93,14 +93,14 @@
       wizardCoat.style.fill = newColor;
       document.querySelector(`input[name='coat-color']`).value = newColor;
       window.coatColor = newColor;
-      window.wizard.updateWizards(window.wizard.wizards);
+      window.debounce(window.wizard.updateWizards);
     });
     wizardEyes.addEventListener(`click`, function () {
       const newColor = getRandomElement(EYES_COLORS);
       wizardEyes.style.fill = newColor;
       document.querySelector(`input[name='eyes-color']`).value = newColor;
       window.eyesColor = newColor;
-      window.wizard.updateWizards(window.wizard.wizards);
+      window.debounce(window.wizard.updateWizards);
     });
     wizardFireBall.addEventListener(`click`, function () {
       const fireBallColor = getRandomElement(FIREBALL_COLORS);
